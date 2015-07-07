@@ -6,46 +6,32 @@
  */
 module.exports = function(numbers){
 
-  function isDivisibleThroughRange(numberToBeTested, maximumRangeNumber) {
-
-    for( var i = 3; i <= maximumRangeNumber; i++) {
-
-      if(numberToBeTested%i !== 0) {
-
-        return false;
-      }
-    }
-
-    return true;
-  }
-
   if(typeof numbers !== 'number') {
 
-    throw new TypeError("Function requires a number");
+    throw new TypeError("Function requires a number as input");
   }
 
   if(isNaN(numbers)) {
 
-    throw new TypeError("Function cannot take NaN");
+    throw new TypeError("Function cannot take NaN as input");
+  }
+
+  if(numbers%1 !== 0) {
+
+    throw new TypeError("Function requires a whole number as input")
   }
 
   numbers = Math.abs(numbers);
 
-  if(numbers < 3) {
-
-    return numbers;
-  }
-
   var candidateNumber = 1;
-
   var rangeArray = [];
 
-  for(var i = 1; i < numbers; i++) {
+  for(var i = 1; i < numbers + 1; i++) { //NB starts at 1, not 0
 
     rangeArray.push(i);
   }
 
-  for(var i = 0; i < rangeArray.length; i++) {
+  for(var i = 0; i < rangeArray.length; i++) { //reduces factors of non-primes to primes, solution is product of residual primes
 
     if(rangeArray[i] != 1) {
 
@@ -60,17 +46,6 @@ module.exports = function(numbers){
       }
     }
   }
-  // var candidateNumber = numbers;
-
-  // if(candidateNumber%2 !== 0) {
-
-  //   candidateNumber++;
-  // }
-
-  // while(!isDivisibleThroughRange(candidateNumber, numbers)) {
-
-  //   candidateNumber += 2;
-  // }
 
   return candidateNumber;
 };
